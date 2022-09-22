@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 
-class User extends Model
+class Employer extends Model
 {
     use Uuid, HasFactory;
 
@@ -16,6 +16,6 @@ class User extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'employer',
     ];
 }
