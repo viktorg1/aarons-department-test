@@ -14,5 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('employees.index');
+})->name('employees.index');
+Route::get('/total-pay', function () {
+    return view('employees.totalpay');
+})->name('employees.totalpay');
+Route::get('/import', function () {
+    return view('employees.import');
+})->name('employees.import');
