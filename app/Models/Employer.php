@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
-
+use App\Models\Shift;
 class Employer extends Model
 {
     use Uuid, HasFactory;
@@ -16,6 +16,10 @@ class Employer extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'employer',
+        'company',
     ];
+    public function shifts()
+    {
+        return $this->hasMany(Shift::class);
+    }
 }

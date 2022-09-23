@@ -20,16 +20,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <a name="delete/id" id="delete/id" class="btn btn-danger" href="#" role="button">Delete</a>
-                                    <a name="edit/id" id="edit/id" class="btn btn-success" href="#" role="button">Edit</a>
-                                </td>
-                            </tr>
+                            {{-- Table for all the users --}}
+                            @if(count($users))
+                                @foreach($users as $user)
+                                    <tr>
+                                        <td>{{$user->id}}</td>
+                                        <td>{{$user->name}}</td>
+                                        <td>
+                                            <a name="delete/id" id="delete/id" class="btn btn-danger" href="#" role="button">Delete</a>
+                                            <a name="edit/id" id="edit/id" class="btn btn-success" href="#" role="button">Edit</a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                @endif
                         </tbody>
                     </table>
+                    {{-- Pagination --}}
+                    <div class="d-flex justify-content-center">
+                        {!! $users->links() !!}
+                    </div>
                 </div>
             </div>
         </div>

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('employers', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('employer')->unique();
+            $table->string('company')->unique();
             $table->timestamps();
         });
     }

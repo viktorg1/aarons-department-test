@@ -35,24 +35,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <a name="delete/id" id="delete/id" class="btn btn-danger" href="#" role="button">Delete</a>
-                                    <a name="edit/id" id="edit/id" class="btn btn-success" href="#" role="button">Edit</a>
-                                </td>
-                            </tr>
+                            {{-- Table for all shifts --}}
+                            @if (count($shifts))
+                                @foreach ($shifts as $shift)
+                                <tr>
+                                    <td>{{$shift->id}}</td>
+                                    <td>{{$shift->user->name}}</td>
+                                    <td>{{$shift->employer->company}}</td>
+                                    <td>{{$shift->hours}}</td>
+                                    <td>{{$shift->avg_hour}}</td>
+                                    <td>{{$shift->taxable}}</td>
+                                    <td>{{$shift->status}}</td>
+                                    <td>{{$shift->shift_type}}</td>
+                                    <td>{{$shift->paid_at}}</td>
+                                    <td>
+                                        <a name="delete/id" id="delete/id" class="btn btn-danger" href="#" role="button">Delete</a>
+                                        <a name="edit/id" id="edit/id" class="btn btn-success" href="#" role="button">Edit</a>
+                                    </td>
+                                </tr>
+                                @endforeach
+
+                            @endif
+
                         </tbody>
                     </table>
+                    {{-- Pagination --}}
+                    <div class="d-flex justify-content-center">
+                        {!! $shifts->links() !!}
+                    </div>
                 </div>
             </div>
         </div>

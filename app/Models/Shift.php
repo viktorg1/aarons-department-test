@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+use App\Models\Employer as ModelsEmployer;
+use App\Models\User as ModelsUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Apps\Models\Employer;
+use Apps\Models\User;
 
-class Payment extends Model
+class Shift extends Model
 {
     use HasFactory;
 
@@ -18,11 +22,21 @@ class Payment extends Model
         'date',
         'user_id',
         'employer_id',
-        'avg_hour',
         'hours',
+        'avg_hour',
         'taxable',
         'status',
         'shift_type',
         'paid_at',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(ModelsUser::class);
+    }
+
+    public function employer()
+    {
+        return $this->belongsTo(ModelsEmployer::class);
+    }
 }

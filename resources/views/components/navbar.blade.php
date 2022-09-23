@@ -7,8 +7,8 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto">
                 <a href="{{route('employees.index')}}" class="nav-item nav-link">Employees</a>
-                <a href="{{route('employees.totalpay')}}" class="nav-item nav-link">Total Payment</a>
-                <a href="{{route('employees.import')}}" class="nav-item nav-link" tabindex="-1">Import</a>
+                <a href="{{route('shifts.index')}}" class="nav-item nav-link">Shifts</a>
+                <a href="{{route('import.index')}}" class="nav-item nav-link" tabindex="-1">Import</a>
             </div>
         </div>
     </div>
