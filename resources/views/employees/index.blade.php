@@ -10,8 +10,8 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="table-responsive table-striped">
-                    <table class="table">
+                <div class="table-responsive">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -27,8 +27,8 @@
                                         <td>{{$user->id}}</td>
                                         <td>{{$user->name}}</td>
                                         <td>
-                                            <a name="delete/id" id="delete/id" class="btn btn-danger" href="#" role="button">Delete</a>
-                                            <a name="edit/id" id="edit/id" class="btn btn-success" href="#" role="button">Edit</a>
+                                            {{-- <a name="delete-{{$user->id}}" id="delete-{{$user->id}}" class="btn btn-danger" href="{{route('employees.show', $user->id)}}" role="button">Delete</a> --}}
+                                            <a name="edit-{{$user->id}}" id="edit-{{$user->id}}" class="btn btn-success" href="{{route('employees.show', $user->id)}}" role="button">View</a>
                                         </td>
                                     </tr>
                                     @endforeach

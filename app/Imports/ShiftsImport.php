@@ -72,8 +72,8 @@ class ShiftsImport implements ToModel, WithHeadingRow
          *
          * This stops duplication in the database which helps with performance.
          */
-        $employee = User::firstOrCreate(['name'     => $row['employee']]);
-        $employer = Employer::firstOrCreate(['company' => $row['employer']]);
+        $employee = User::firstOrCreate(['name'         => $row['employee']]);
+        $employer = Employer::firstOrCreate(['company'  => $row['employer']]);
 
         // Get UUID's of employee and employer
         $employee_uuid = $employee->id;

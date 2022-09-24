@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-bottom shadow-lg ">
     <div class="container-fluid">
-        <a href="#" class="navbar-brand">Aarons Department</a>
+        <a href="{{route('shifts.index')}}" class="navbar-brand">Aarons Department</a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>

@@ -24,6 +24,10 @@ Route::get('/', function () {
 
 Route::prefix('shifts')->group(function(){
     Route::get('/', [ShiftController::class, 'index'])->name('shifts.index');
+    Route::post('/', [ShiftController::class, 'store'])->name('shifts.store');
+    Route::delete('/destroy/{id}', [ShiftController::class, 'destroy'])->name('shifts.destroy');
+    Route::get('/show/{id}', [ShiftController::class, 'show'])->name('shifts.show');
+    Route::put('/{id}', [ShiftController::class, 'update'])->name('shifts.update');
 });
 
 Route::prefix('import')->group(function(){
@@ -33,5 +37,6 @@ Route::prefix('import')->group(function(){
 
 Route::prefix('employees')->group(function(){
     Route::get('/', [UserController::class, 'index'])->name('employees.index');
+    Route::get('/{id}', [UserController::class, 'show'])->name('employees.show');
 });
 

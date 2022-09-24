@@ -30,6 +30,7 @@ class Shift extends Model
         'paid_at',
     ];
 
+
     public function user()
     {
         return $this->belongsTo(ModelsUser::class);

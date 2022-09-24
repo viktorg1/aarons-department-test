@@ -14,7 +14,7 @@
 
 <body>
     <div class="container">
-        <div class=" d-flex align-items-center justify-content-center" style="height:90vh;">
+        <div>
                 <div class="card-body text-center" style="">
                     <div>
                         <h5 class="card-title">Import</h5>
