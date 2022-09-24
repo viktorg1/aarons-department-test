@@ -11,6 +11,7 @@ $ git clone https://github.com/viktorg1/aarons-department-test.git
 $ cd aarons-department-test
 
 $ composer install
+$ npm install
 
 ```
 

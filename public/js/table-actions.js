@@ -18,9 +18,24 @@ $(document).on('click', '.create-btn', function(e){
     let paid_at =   $('#create-paidat').val();
     let total_pay = parseInt(hours * avghour);
 
+    // if(paid_at){
+    //     paid_at = moment(paid_at).format('YYYY-MM-DD HH:mm:ss');
+    // } else {
+    //     paid_at = null
+    // }
+
+    if (Object.prototype.toString.call(paid_at) === "[object Date]") {
+        paid_at = moment(paid_at).format('YYYY-MM-DD HH:mm:ss');
+        if (isNaN(paid_at)) { // d.getTime() or d.valueOf() will also work
+            paid_at = null
+        } else {
+            paid_at = moment(paid_at).format('YYYY-MM-DD HH:mm:ss');
+        }
+      }
+
+
     // Getting the current date and time with moment.js
     let date = moment().format('YYYY-MM-DD HH:mm:ss')
-    let paidat = moment(paid_at).format('YYYY-MM-DD HH:mm:ss')
 
     $.ajax({
         url:data_url,
@@ -38,7 +53,7 @@ $(document).on('click', '.create-btn', function(e){
             status:status,
             total_pay:total_pay,
             shift_type:shift,
-            paid_at:paidat,
+            paid_at:paid_at,
         }
     }).done(function(data){
         iziToast.success({

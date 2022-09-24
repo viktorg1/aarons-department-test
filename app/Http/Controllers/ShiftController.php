@@ -54,7 +54,6 @@ class ShiftController extends Controller
                     'taxable'       => 'required',
                     'status'        => 'required',
                     'shift_type'    => 'required',
-                    'paid_at'       => 'required',
                 ];
                 // Using validator to validate the data with the given rules
                 $validator  = Validator::make($data, $rules);
