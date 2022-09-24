@@ -94,6 +94,8 @@ class ShiftsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
         }
         $date = strtotime($row['date']);
         $date = date("Y-m-d H:i:s", $date);
+        $avg_hour = str_replace('£', '', $row['rate_per_hour']);
+        $total_pay = ($avg_hour * $row['hours']);
         /**
          *
          * Create a new Shift in the database table
@@ -110,10 +112,11 @@ class ShiftsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
             'user_id'       => $employee_uuid,
             'employer_id'   => $employer_uuid,
             'hours'         => $row['hours'],
-            'avg_hour'      => $row['rate_per_hour'],
+            'avg_hour'      => $avg_hour,
             'taxable'       => $row['taxable'],
             'status'        => $row['status'],
             'shift_type'    => $row['shift_type'],
+            'total_pay'     => intval($total_pay),
             'paid_at'       => $paid_at,
         ]);
     }

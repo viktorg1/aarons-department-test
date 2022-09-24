@@ -1,25 +1,27 @@
 
+// Getting the current location, public string to be used through the other functions
 let loc = window.location.protocol + '//' + window.location.host
 
 
 $(document).on('click', '.create-btn', function(e){
     e.PreventDefault;
-
+    // Getting the url of the current location through loc variable
     let data_url = loc + '/shifts/';
-
-    let employee =$('#create-employee').val();
-    let employer =$('#create-employer').val();
-    let hours = $('#create-hours').val();
-    let avghour = $('#create-avghour').val();
-    let taxable = $('#create-taxable').val();
-    let status = $('#create-status').val();
-    let shift = $('#create-shift').val();
-    let paid_at = $('#create-paidat').val();
+    // Getting values from the form
+    let employee =  $('#create-employee').val();
+    let employer =  $('#create-employer').val();
+    let hours =     $('#create-hours').val();
+    let avghour =   $('#create-avghour').val();
+    let taxable =   $('#create-taxable').val();
+    let status =    $('#create-status').val();
+    let shift =     $('#create-shift').val();
+    let paid_at =   $('#create-paidat').val();
+    let total_pay = parseInt(hours * avghour);
 
     // Getting the current date and time with moment.js
     let date = moment().format('YYYY-MM-DD HH:mm:ss')
     let paidat = moment(paid_at).format('YYYY-MM-DD HH:mm:ss')
-    console.log(paidat)
+
     $.ajax({
         url:data_url,
         type: 'POST',
@@ -34,6 +36,7 @@ $(document).on('click', '.create-btn', function(e){
             avg_hour:avghour,
             taxable:taxable,
             status:status,
+            total_pay:total_pay,
             shift_type:shift,
             paid_at:paidat,
         }
@@ -42,6 +45,7 @@ $(document).on('click', '.create-btn', function(e){
             title: 'Success',
             message: data.message,
         });
+        // Closing modal
         $('#create-modal').modal('toggle');
     }).fail(function() {
         // Display error notification.
@@ -56,6 +60,8 @@ $(document).on('click', '.create-btn', function(e){
 
 $(document).on('click', '.edit-btn', function(e) {
     e.PreventDefault;
+
+    // Creating variable data_url and getting the value from data attribute url
     let data_url = $(this).data('url');
     $.ajax({
         url: data_url,
@@ -64,11 +70,14 @@ $(document).on('click', '.edit-btn', function(e) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
     }).done(function(data){
+
+        // Collecting Shift data so its shown in the modal
+
         $('#update-modal').data('id', data.message.id);
         $('#update-employee').val(data.message.user_id);
         $('#update-employer').val(data.message.employer_id);
         $('#update-hours').val(data.message.hours);
-        $('#update-avghour').val('£'+data.message.avg_hour);
+        $('#update-avghour').val(data.message.avg_hour);
         $('#update-taxable').val(data.message.taxable);
         $('#update-status').val(data.message.status);
         $('#update-shift').val(data.message.shift_type);
@@ -78,16 +87,22 @@ $(document).on('click', '.edit-btn', function(e) {
 })
 
 $(document).on('click', '.update-btn', function(e){
+
     e.PreventDefault;
+
     let id = $('#update-modal').data('id');
+    // Getting url from public variable loc and given id from the already set data attribute id
     let data_url = loc + '/shifts/' + id;
-    let employee =$('#update-employee').val();
-    let employer =$('#update-employer').val();
-    let hours = $('#update-hours').val();
-    let avghour = $('#update-avghour').val();
-    let taxable = $('#update-taxable').val();
-    let status = $('#update-status').val();
-    let shift = $('#update-shift').val();
+
+    let employee =  $('#update-employee').val();
+    let employer =  $('#update-employer').val();
+    let hours =     $('#update-hours').val();
+    let avghour =   $('#update-avghour').val();
+    let taxable =   $('#update-taxable').val();
+    let status =    $('#update-status').val();
+    let shift =     $('#update-shift').val();
+
+    let total_pay = parseInt(hours * avghour);
 
     // Getting the current date and time with moment.js
     let date = moment().format('YYYY-MM-DD HH:mm:ss')
@@ -108,6 +123,7 @@ $(document).on('click', '.update-btn', function(e){
             avg_hour:avghour,
             taxable:taxable,
             status:status,
+            total_pay:total_pay,
             shift_type:shift,
         }
     }).done(function(data){
@@ -117,7 +133,7 @@ $(document).on('click', '.update-btn', function(e){
         });
         $('#update-modal').modal('toggle');
     }).fail(function() {
-        // Display error notification.
+        // Display error notification
         iziToast.error({
             title: 'Error',
             message: 'Error occured.'
@@ -146,12 +162,12 @@ $(document).on('click', '.del-btn', function(e){
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                     }).done(function(data) {
-                            // If the call deleted, display success notification with iziToast.
+                            // If the selected shift is deleted, display success notification with iziToast.
                                 iziToast.success({
                                     title: 'Success',
                                     message: data.message,
                                 });
-                            // Removing the table row.
+                            // Removing the table row with animation.
                             table_row.fadeOut( "slow", function() {
                                 // Animation complete.
                             }).fail(function(data){

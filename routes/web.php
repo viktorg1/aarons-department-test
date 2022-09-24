@@ -28,6 +28,7 @@ Route::prefix('shifts')->group(function(){
     Route::delete('/destroy/{id}',      [ShiftController::class, 'destroy'])->name('shifts.destroy');
     Route::get('/show/{id}',            [ShiftController::class, 'show'])->name('shifts.show');
     Route::put('/{id}',                 [ShiftController::class, 'update'])->name('shifts.update');
+    Route::get('/filter/{filter}',      [ShiftController::class, 'filter'])->name('shifts.filter');
 });
 
 Route::prefix('import')->group(function(){

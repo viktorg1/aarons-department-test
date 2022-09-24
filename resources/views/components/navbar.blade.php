@@ -6,9 +6,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto">
-                <a href="{{route('employees.index')}}" class="nav-item nav-link">Employees</a>
-                <a href="{{route('shifts.index')}}" class="nav-item nav-link">Shifts</a>
-                <a href="{{route('import.index')}}" class="nav-item nav-link" tabindex="-1">Import</a>
+                <a href="{{route('employees.index')}}" class="nav-item nav-link {{Route::current()->uri == 'employees' ? 'active' : ''}}">Employees</a>
+                <a href="{{route('shifts.index')}}" class="nav-item nav-link {{Route::current()->uri == 'shifts' ? 'active' : ''}}">Shifts</a>
+                <a href="{{route('import.index')}}" class="nav-item nav-link {{Route::current()->uri == 'import' ? 'active' : ''}}" tabindex="-1">Import</a>
             </div>
         </div>
     </div>

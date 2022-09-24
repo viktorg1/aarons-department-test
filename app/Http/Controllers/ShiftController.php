@@ -6,6 +6,7 @@ use App\Models\Shift as Shift;
 use App\Models\User;
 use App\Models\Employer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class ShiftController extends Controller
@@ -72,6 +73,7 @@ class ShiftController extends Controller
                     'avg_hour'      => $data['avg_hour'],
                     'taxable'       => $data['taxable'],
                     'status'        => $data['status'],
+                    'total_pay'     => $data['total_pay'],
                     'shift_type'    => $data['shift_type'],
                     'paid_at'       => $data['paid_at'],
                 ]);
@@ -97,6 +99,29 @@ class ShiftController extends Controller
         // If the shift doesn't exist, returns an error message
         return response()->json(['message' => "There was an error."], 400);
     }
+
+        /**
+     * Display the filtered resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function filter($filter)
+    {
+        /**
+         *
+         * Filter function should be working with AJAX/API callback.
+         *
+         *
+         */
+        $shifts = Shift::where('total_pay', '>', intval($filter))->paginate(10);
+        // Getting the users and employers for Create dropdown modal
+        $users = User::all();
+        $employers = Employer::all();
+
+        return view('filter.index', compact('shifts', 'users', 'employers'));
+    }
+
 
     /**
      * Update the specified resource in storage.
@@ -141,6 +166,7 @@ class ShiftController extends Controller
             $shift->avg_hour        = $data['avg_hour'];
             $shift->taxable         = $data['taxable'];
             $shift->status          = $data['status'];
+            $shift->total_pay       = $data['total_pay'];
             $shift->shift_type      = $data['shift_type'];
             $shift->save();
             return response()->json(['message' => "Shift updated."], 200);

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->uuid('employer_id')->nullable(false);
             $table->string('avg_hour');
             $table->string('hours');
+            $table->string('total_pay')->nullable();
             $table->enum('taxable', ['Yes', 'No']);
             $table->enum('status', ['Complete', 'Pending', 'Processing', 'Failed']);
             $table->enum('shift_type', ['Day', 'Night', 'Holiday']);

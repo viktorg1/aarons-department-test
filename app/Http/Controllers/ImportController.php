@@ -38,10 +38,6 @@ class ImportController extends Controller
      */
     public function store(Request $request)
     {
-        ini_set('memory_limit', '4096M');
-        ini_set('max_execution_time', 600);
-        ini_set('upload_max_filesize', '5M');
-        ini_set('post_max_size', '15M');
         // Collecting all of the requested data into a variable called $data
         $data = $request->all();
 
@@ -61,6 +57,8 @@ class ImportController extends Controller
 
         // If the import was successfull return back a response with status 200 and a message to be used with a notification
         if(Excel::import(new ShiftsImport, $request->file('shifts')->store('temp'))){
+            // Updating avg_hour which trims the character from the row avg_hour.
+            // This is done for later purposes where AVG is used
             DB::update('UPDATE shifts SET avg_hour = TRIM("£" FROM avg_hour)');
             return response()->json('File successfully imported.', 200);
         }

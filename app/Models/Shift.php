@@ -24,6 +24,7 @@ class Shift extends Model
         'employer_id',
         'hours',
         'avg_hour',
+        'total_pay',
         'taxable',
         'status',
         'shift_type',
