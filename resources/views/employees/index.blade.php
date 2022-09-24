@@ -6,7 +6,6 @@
 
 <body>
     <div class="container mt-5 py-5">
-        <button type="button" name="total_pay" id="total_pay_button" class="btn btn-info">+ Create Shift</button>
 
         <div class="row">
             <div class="col-md-12">

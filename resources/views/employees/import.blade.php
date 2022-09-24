@@ -17,7 +17,7 @@
         <div>
                 <div class="card-body text-center" style="">
                     <div>
-                        <h5 class="card-title">Import</h5>
+                        <h5 class="card-title mb-5">Import Here</h5>
                         <i class='bx bx-import text-blue fs-1 mb-5'></i>
                     </div>
                     <form id="dropzone" action="{{route('import.import')}}"

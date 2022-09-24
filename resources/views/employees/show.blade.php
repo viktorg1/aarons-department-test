@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2>{{$user->name}} averages a total pay of {{round($avg_totalpay->avg, 2)}} and average pay per hour of {{round($avg_perhour, 2)}}</h2>
+                <h2 class="mb-5">{{$user->name}} averages a <span class="text-primary">total pay</span> of <span class="text-primary">{{round($avg_totalpay->avg, 2)}}</span> and average <span class="text-warning">pay per hour</span> of <span class="text-warning">{{round($avg_perhour, 2)}}</span></h2>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
@@ -18,6 +18,7 @@
                                 <th>Employer</th>
                                 <th>Hours</th>
                                 <th>Rate Per Hour</th>
+                                <th>Total Pay</th>
                                 <th>Taxable</th>
                                 <th>Status</th>
                                 <th>Shift Type</th>
@@ -34,6 +35,7 @@
                                         <td>{{$shift->employer->company}}</td>
                                         <td>{{$shift->hours}}</td>
                                         <td>£{{$shift->avg_hour}}</td>
+                                        <td>£{{$shift->total_pay}}</td>
                                         <td>{{$shift->taxable}}</td>
                                         <td>{{$shift->status}}</td>
                                         <td>{{$shift->shift_type}}</td>
