@@ -30,11 +30,13 @@
     </div>
 
     <script type="text/javascript">
+    var totalsize = 0.0;
         // Configuration for DropzoneJS
         Dropzone.options.dropzone = {
             dictDefaultMessage: "Drop CSV files or click here!", // Introducing a more straight forward message to the user
             paramName: "shifts", // Name used for file transfer
-            maxFilesize: 5, // Max size for upload in MB
+            maxFilesize: 2, // Max size for upload in MB
+            timeout: 180000,
             init: function() {
                 dropzone = this;
                 this.on("addedfile", function(file) { // Event when file is added
@@ -54,7 +56,7 @@
                         });
                     }
                 });
-                this.on("error", function(file, response) {
+                this.on("error", function(file, response,xhr) {
                     // Checking what the error is
                     let message = "";
                     if (response.errors) {

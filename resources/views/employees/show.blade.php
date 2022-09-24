@@ -33,7 +33,7 @@
                                         <td>{{$user->name}}</td>
                                         <td>{{$shift->employer->company}}</td>
                                         <td>{{$shift->hours}}</td>
-                                        <td>{{$shift->avg_hour}}</td>
+                                        <td>£{{$shift->avg_hour}}</td>
                                         <td>{{$shift->taxable}}</td>
                                         <td>{{$shift->status}}</td>
                                         <td>{{$shift->shift_type}}</td>

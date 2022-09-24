@@ -5,12 +5,18 @@ namespace App\Imports;
 use App\Models\Shift;
 use App\Models\Employer;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class ShiftsImport implements ToModel, WithHeadingRow
+class ShiftsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading, SkipsOnFailure
 {
-
+    use Importable, SkipsFailures;
 
     /**
      * CSV Data Format:
@@ -38,7 +44,6 @@ class ShiftsImport implements ToModel, WithHeadingRow
      * Field "Taxable" is required and has to be either "Yes" or "No".
      * Field "Status" is required and has to be either "Complete", "Pending".
      * Field "Shift Type" is required and has to be either "Day" or "Night".
-     * Field "Paid At" is required and has to be a valid date format ex."7/24/2022 22:30".
      */
     public function rules(): array
     {
@@ -54,7 +59,6 @@ class ShiftsImport implements ToModel, WithHeadingRow
             'taxable'       => 'required',
             'status'        => 'required',
             'shift_type'    => 'required',
-            'paid_at'       => 'required',
         ];
     }
     /**
@@ -64,6 +68,7 @@ class ShiftsImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+
         /**
          * Checking:
          * If Employee or Employer don't exist in the database
@@ -80,8 +85,15 @@ class ShiftsImport implements ToModel, WithHeadingRow
         $employer_uuid = $employer->id;
 
         // Changing it to time with a new form so it's able to be inserted into SQL
-        $paid_at = strtotime($row['paid_at']);
-
+        if($row['paid_at']){
+            $paid_at = strtotime($row['paid_at']);
+            $paid_at = date("Y-m-d H:i:s", $paid_at);
+        }
+        else {
+            $paid_at = NULL;
+        }
+        $date = strtotime($row['date']);
+        $date = date("Y-m-d H:i:s", $date);
         /**
          *
          * Create a new Shift in the database table
@@ -94,15 +106,25 @@ class ShiftsImport implements ToModel, WithHeadingRow
          */
 
         return new Shift([
-            'date'          => $row['date'],
+            'date'          => $date,
             'user_id'       => $employee_uuid,
-            'employer_id'  => $employer_uuid,
+            'employer_id'   => $employer_uuid,
             'hours'         => $row['hours'],
             'avg_hour'      => $row['rate_per_hour'],
             'taxable'       => $row['taxable'],
             'status'        => $row['status'],
             'shift_type'    => $row['shift_type'],
-            'paid_at'       => date("Y-m-d H:i:s", $paid_at),
+            'paid_at'       => $paid_at,
         ]);
+    }
+
+    public function batchSize(): int
+    {
+        return 1000;
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }

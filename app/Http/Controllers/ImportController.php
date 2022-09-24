@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\ShiftsImport;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -37,13 +38,16 @@ class ImportController extends Controller
      */
     public function store(Request $request)
     {
-
+        ini_set('memory_limit', '4096M');
+        ini_set('max_execution_time', 600);
+        ini_set('upload_max_filesize', '5M');
+        ini_set('post_max_size', '15M');
         // Collecting all of the requested data into a variable called $data
         $data = $request->all();
 
         // Array with validation rules
         $rules = [
-            'shifts' => 'required|mimes:csv',
+            'shifts' => 'required|mimes:csv|max:5120',
         ];
 
         // Validate the data with the rules through an integrated Laravel function
@@ -57,53 +61,26 @@ class ImportController extends Controller
 
         // If the import was successfull return back a response with status 200 and a message to be used with a notification
         if(Excel::import(new ShiftsImport, $request->file('shifts')->store('temp'))){
+            DB::update('UPDATE shifts SET avg_hour = TRIM("£" FROM avg_hour)');
             return response()->json('File successfully imported.', 200);
         }
 
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return int
      */
-    public function show($id)
+    public function chunkSize(): int
     {
-        //
+        return 1000;
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return int
      */
-    public function edit($id)
+    public function batchSize(): int
     {
-        //
+        return 1000;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

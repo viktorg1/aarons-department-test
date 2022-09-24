@@ -68,7 +68,7 @@ $(document).on('click', '.edit-btn', function(e) {
         $('#update-employee').val(data.message.user_id);
         $('#update-employer').val(data.message.employer_id);
         $('#update-hours').val(data.message.hours);
-        $('#update-avghour').val(data.message.avg_hour);
+        $('#update-avghour').val('£'+data.message.avg_hour);
         $('#update-taxable').val(data.message.taxable);
         $('#update-status').val(data.message.status);
         $('#update-shift').val(data.message.shift_type);
@@ -91,8 +91,9 @@ $(document).on('click', '.update-btn', function(e){
 
     // Getting the current date and time with moment.js
     let date = moment().format('YYYY-MM-DD HH:mm:ss')
-
-
+    // Clearing the british pound and sending an int variable to server
+    hours = hours.replace('£', '')
+    hours = parseInt(hours)
     $.ajax({
         url:data_url,
         type: 'PUT',

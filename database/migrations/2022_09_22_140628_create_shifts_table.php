@@ -20,13 +20,10 @@ return new class extends Migration
             $table->uuid('employer_id')->nullable(false);
             $table->string('avg_hour');
             $table->string('hours');
-            $table->string('taxable');
-            // $table->enum('taxable', ['Yes', 'No']);
-            $table->string('status');
-            // $table->enum('status', ['Complete', 'Pending', 'Processing', 'Failed']);
-            // $table->enum('shift_type', ['Day', 'Night', 'Holiday']);
-            $table->string('shift_type');
-            $table->dateTime('paid_at');
+            $table->enum('taxable', ['Yes', 'No']);
+            $table->enum('status', ['Complete', 'Pending', 'Processing', 'Failed']);
+            $table->enum('shift_type', ['Day', 'Night', 'Holiday']);
+            $table->dateTime('paid_at')->nullable();
             $table->timestamps();
 
             // -----------Foreign keys-----------
