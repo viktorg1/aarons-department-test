@@ -60,4 +60,4 @@ $ php artisan migrate:fresh
 $ php artisan serve
 ```
 
-<img src="https://i.imgur.com/H7JGPcp.png" />
+<img src="https://i.imgur.com/b9LngsE.png" />
