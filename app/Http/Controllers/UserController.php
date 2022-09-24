@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employer;
 use App\Models\Shift;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -58,7 +59,10 @@ class UserController extends Controller
             $avg_perhour = $user->shifts()
                                 ->where('user_id', $user->id)
                                 ->avg('avg_hour');
-            return view('employees.show', compact('user', 'last_five', 'avg_totalpay', 'avg_perhour'));
+            // Getting the users and employers for Update dropdown modal
+            $users = User::all();
+            $employers = Employer::all();
+            return view('employees.show', compact('user', 'last_five', 'avg_totalpay', 'avg_perhour','users', 'employers'));
         }
         // If the user doesn't exist, he gets redirected back to employee page
         return redirect()->route('employees.index');
