@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Uuid;
 use App\Models\Shift;
-
-class User extends Model
+class Employer extends Model
 {
     use Uuid, HasFactory;
 
@@ -17,7 +16,7 @@ class User extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'company',
     ];
     public function shifts()
     {

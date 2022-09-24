@@ -1,0 +1,19 @@
+.navbar {
+    -webkit-box-shadow: 0px -6px 42px -8px rgba(49,117,108,1);
+    -moz-box-shadow: 0px -6px 42px -8px rgba(49,117,108,1);
+    box-shadow: 0px -6px 42px -8px rgba(49,117,108,1);
+    /* the rest of your styling */
+}
+html, body {
+    height: 100%;
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+}
